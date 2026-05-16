@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Insider-X — Brand Tokens
+   ---------------------------------------------------------------- */
+
+@theme {
+  /* Palette */
+  --color-ix-bg: #050008;
+  --color-ix-bg-2: #08000f;
+  --color-ix-surface: #0b0717;
+  --color-ix-surface-2: #110a25;
+  --color-ix-border: #1f1735;
+  --color-ix-border-strong: #2c2150;
+
+  --color-ix-fg: #f5f1ff;
+  --color-ix-fg-muted: #a89fc4;
+  --color-ix-fg-dim: #6a627f;
+
+  --color-ix-cyan: #5be9ff;
+  --color-ix-cyan-glow: #00d1ff;
+  --color-ix-magenta: #ff49c8;
+  --color-ix-violet: #7b5bff;
+  --color-ix-amber: #ffd166;
+  --color-ix-green: #2bff9a;
+  --color-ix-red: #ff4d6d;
+
+  /* Background for system tokens */
+  --color-background: var(--color-ix-bg);
+  --color-foreground: var(--color-ix-fg);
+
+  /* Fonts */
+  --font-display: var(--font-display-grotesk), system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Shadows */
+  --shadow-glow-cyan: 0 0 30px rgba(91, 233, 255, 0.35), 0 0 80px rgba(91, 233, 255, 0.18);
+  --shadow-glow-magenta: 0 0 30px rgba(255, 73, 200, 0.35), 0 0 80px rgba(255, 73, 200, 0.18);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* ----------------------------------------------------------------
+   Base
+   ---------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    background: var(--color-ix-bg);
+    color: var(--color-ix-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis manages this */
+  }
+
+  body {
+    overflow-x: clip;
+    cursor: none;
+  }
+
+  @media (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-ix-magenta) 50%, transparent);
+    color: white;
+  }
+
+  /* Hide default scrollbar visuals on long body for cinematic feel */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ix-border);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ix-border-strong);
+  }
+}
+
+/* ----------------------------------------------------------------
+   Custom utilities & components
+   ---------------------------------------------------------------- */
+
+@utility gradient-fleet {
+  background-image: linear-gradient(135deg, #5be9ff 0%, #7b5bff 50%, #ff49c8 100%);
+}
+
+@utility gradient-text-fleet {
+  background-image: linear-gradient(135deg, #5be9ff 0%, #c7a0ff 50%, #ff49c8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility gradient-text-cool {
+  background-image: linear-gradient(180deg, #ffffff 0%, #b8a8ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ix-surface) 90%, transparent),
+    color-mix(in oklab, var(--color-ix-surface-2) 70%, transparent)
+  );
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--color-ix-border) 70%, transparent);
+  box-shadow: var(--shadow-card);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, var(--color-ix-surface) 85%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--color-ix-border);
+  box-shadow: var(--shadow-card);
+}
+
+@utility hairline {
+  border: 1px solid color-mix(in oklab, var(--color-ix-border) 80%, transparent);
+}
+
+@utility ring-glow-cyan {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ix-cyan) 40%, transparent),
+    0 0 30px color-mix(in oklab, var(--color-ix-cyan) 25%, transparent);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+@utility numerals-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Display heading with variable-axis ready styling */
+@utility display-1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.75rem, 7vw, 7.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+@utility display-2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+@utility display-3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ix-fg-muted);
+}
+
+/* ----------------------------------------------------------------
+   Kinetic typography helpers
+   ---------------------------------------------------------------- */
+
+.kinetic-char {
+  display: inline-block;
+  will-change: transform, opacity, font-variation-settings;
+}
+
+.kinetic-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Subtle film grain layer used by PostFx HTML fallback */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Aurora background fallback for non-WebGL/initial paint */
+.aurora-fallback {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.aurora-fallback::before,
+.aurora-fallback::after {
+  content: "";
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  border-radius: 50%;
+}
+
+.aurora-fallback::before {
+  width: 60vmax;
+  height: 60vmax;
+  top: -20vmax;
+  left: -10vmax;
+  background: radial-gradient(circle, var(--color-ix-violet), transparent 60%);
+}
+
+.aurora-fallback::after {
+  width: 70vmax;
+  height: 70vmax;
+  top: 10vmax;
+  right: -25vmax;
+  background: radial-gradient(circle, var(--color-ix-magenta), transparent 60%);
+}
+
+/* ----------------------------------------------------------------
+   Accessibility
+   ---------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus ring that matches the brand instead of browser default */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-ix-bg), 0 0 0 4px var(--color-ix-cyan);
+  border-radius: 4px;
+}
