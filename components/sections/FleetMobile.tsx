@@ -36,12 +36,23 @@ export function FleetMobile() {
       const dist = Math.hypot(col - cx, row - cy);
       return {
         i,
+        col,
+        row,
         color: TILE_COLORS[Math.floor(rng() * TILE_COLORS.length)],
         pnl: 0.15 + rng() * 0.65,
         ripple: dist / 9, // delay relative to centre
       };
     });
   }, []);
+
+  // Continuous post-fire row pulse — kicks off ~1.6s after fire so the
+  // grid never reads as a static, finished state when scrolled past.
+  const [pulseActive, setPulseActive] = useState(false);
+  useEffect(() => {
+    if (!fired) return;
+    const id = setTimeout(() => setPulseActive(true), 1600);
+    return () => clearTimeout(id);
+  }, [fired]);
 
   // Auto-fire when section is well in view
   useEffect(() => {
@@ -180,6 +191,17 @@ export function FleetMobile() {
                     background:
                       "linear-gradient(135deg, rgba(91,233,255,0.85), rgba(255,73,200,0.85))",
                     mixBlendMode: "screen",
+                  }}
+                />
+              )}
+              {/* Looping cyan row pulse — propagates row-by-row so the grid
+                  keeps moving even when the user has stopped scrolling. */}
+              {pulseActive && !reduced && (
+                <span
+                  aria-hidden
+                  className="fleet-row-pulse absolute inset-0"
+                  style={{
+                    animationDelay: `${t.row * 0.16}s`,
                   }}
                 />
               )}

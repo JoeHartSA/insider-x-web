@@ -11,7 +11,7 @@ type Props = Omit<CanvasProps, "children"> & {
   preloadMargin?: string;
   /** Fallback element shown while scene is not mounted or loading */
   fallback?: ReactNode;
-  /** Cap on DPR (default 1.4, capped harder than R3F default). */
+  /** Cap on DPR (default 1.25, capped harder than R3F default). */
   maxDpr?: number;
 };
 
@@ -25,7 +25,7 @@ export function SceneFrame({
   className,
   preloadMargin = "20% 0px 20% 0px",
   fallback,
-  maxDpr = 1.4,
+  maxDpr = 1.25,
   ...rest
 }: Props) {
   const wrapRef = useRef<HTMLDivElement | null>(null);

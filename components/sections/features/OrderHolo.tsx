@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-type Tab = "limit" | "twap" | "dca" | "trailing";
+type Tab = "limit" | "dca" | "trailing";
 const TABS: { id: Tab; label: string }[] = [
   { id: "limit", label: "Limit" },
-  { id: "twap", label: "TWAP" },
   { id: "dca", label: "DCA" },
   { id: "trailing", label: "Trailing" },
 ];
@@ -33,8 +32,8 @@ function path(pts: [number, number][]) {
 /**
  * Order Holo — animated SVG holographic order book / diagram tabs.
  *
- * Each tab draws its own animated chart annotation: a limit line, a TWAP
- * staircase, a DCA pulse series, a trailing stop band.
+ * Each tab draws its own animated chart annotation: a limit line, a DCA
+ * pulse series, a trailing stop band.
  */
 export function OrderHolo() {
   const [tab, setTab] = useState<Tab>("limit");
@@ -161,52 +160,6 @@ export function OrderHolo() {
                   fill="#5be9ff"
                 >
                   LIMIT @ $0.0241
-                </text>
-              </g>
-            )}
-
-            {tab === "twap" && (
-              <g key="twap">
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-                  const x = (i / 8) * W * 0.95 + W * 0.025;
-                  const y = H * 0.5 - i * 8;
-                  return (
-                    <motion.g
-                      key={i}
-                      initial={{ opacity: 0, y: y + 16 }}
-                      animate={{ opacity: 1, y }}
-                      transition={{ delay: 0.1 + i * 0.07, duration: 0.4 }}
-                    >
-                      <rect
-                        x={x - 14}
-                        y={y - 3}
-                        width="28"
-                        height="6"
-                        rx="2"
-                        fill="url(#holo-stroke)"
-                      />
-                      <text
-                        x={x}
-                        y={y - 10}
-                        textAnchor="middle"
-                        fontFamily="ui-monospace, monospace"
-                        fontSize="8"
-                        fill="rgba(255,255,255,0.6)"
-                      >
-                        +12.5
-                      </text>
-                    </motion.g>
-                  );
-                })}
-                <text
-                  x="14"
-                  y="26"
-                  fontFamily="ui-monospace, monospace"
-                  fontSize="10"
-                  letterSpacing="2"
-                  fill="#5be9ff"
-                >
-                  TWAP · 8 slices · 90s window
                 </text>
               </g>
             )}

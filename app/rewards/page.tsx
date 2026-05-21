@@ -7,7 +7,7 @@ import { CtaFinal } from "@/components/sections/CtaFinal";
 export const metadata: Metadata = {
   title: "Rewards",
   description:
-    "Up to 50% cashback, 50% lifetime referral split, and a daily SOL jackpot. The house pays you on Insider-X.",
+    "Fees from 0.1% — up to 5× cheaper than the field. Stack 50% cashback, a 50% lifetime referral split and tiered discounts that compound with every trade.",
 };
 
 export default function Page() {
@@ -17,7 +17,7 @@ export default function Page() {
         eyebrow="Rewards"
         title="The house pays you."
         highlight="pays you."
-        subtitle="Cashback ladders, referral splits, and a SOL jackpot paid at midnight UTC every day."
+        subtitle="Fees from 0.1% — up to 5× cheaper than the field. Cashback ladders and referral splits that compound with your volume."
       />
       <Rewards />
       <Comparison />

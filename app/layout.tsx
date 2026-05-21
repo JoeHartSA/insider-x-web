@@ -21,11 +21,11 @@ const displayGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://insider-x.io"),
   title: {
-    default: "Insider-X — The fastest execution engine on Solana",
+    default: "Insider-X — Trade faster, safer, smarter on Solana",
     template: "%s · Insider-X",
   },
   description:
-    "Command a fleet of up to 500 wallets in parallel. Sub-200ms quote-to-fill across pump.fun, Raydium, Jupiter, Drift and every Solana alt-market that matters.",
+    "Insider-X is the trading edge for Solana. Sub-200ms fills, on-chain rug protection, and fees up to 5× cheaper than Axiom, Trojan and Photon.",
   keywords: [
     "Solana trading",
     "pump.fun",
@@ -35,6 +35,8 @@ export const metadata: Metadata = {
     "memecoin",
     "sniper",
     "MEV",
+    "rug protection",
+    "low fee Solana",
     "Axiom alternative",
     "Trojan alternative",
     "Photon alternative",
@@ -42,16 +44,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Insider-X",
-    title: "Insider-X — The fastest execution engine on Solana",
+    title: "Insider-X — Trade faster, safer, smarter on Solana",
     description:
-      "Command a fleet of up to 500 wallets in parallel. Sub-200ms quote-to-fill across every Solana alt-market.",
+      "Sub-200ms fills, on-chain rug protection, and fees up to 5× cheaper than Axiom, Trojan and Photon. Private beta.",
     url: "https://insider-x.io",
     images: [
       {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Insider-X — Command a fleet of 500 wallets",
+        alt: "Insider-X — Trade faster, safer, smarter",
       },
     ],
   },
@@ -59,9 +61,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@insiderx",
     creator: "@insiderx",
-    title: "Insider-X — The fastest execution engine on Solana",
+    title: "Insider-X — Trade faster, safer, smarter on Solana",
     description:
-      "Command a fleet of 500 wallets. Trade faster than light. Sub-200ms quote-to-fill on Solana.",
+      "Sub-200ms fills, on-chain rug protection, fees from 0.1% — up to 5× cheaper than the field. Private beta.",
     images: ["/api/og"],
   },
   icons: {

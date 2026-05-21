@@ -4,8 +4,10 @@ export const runtime = "edge";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const title = searchParams.get("title") || "Command a fleet of 500 wallets.";
-  const sub = searchParams.get("sub") || "Sub-200ms quote-to-fill on Solana.";
+  const title = searchParams.get("title") || "Trade faster, safer, smarter.";
+  const sub =
+    searchParams.get("sub") ||
+    "Sub-200ms fills · on-chain rug protection · fees up to 5× cheaper than Axiom.";
 
   return new ImageResponse(
     (
@@ -86,7 +88,7 @@ export async function GET(req: Request) {
               fontWeight: 600,
             }}
           >
-            Get early access →
+            Request beta access →
           </div>
         </div>
       </div>

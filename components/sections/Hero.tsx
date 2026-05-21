@@ -5,12 +5,10 @@ import dynamic from "next/dynamic";
 import { SceneFrame } from "@/components/three/SceneFrame";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { KineticHeading } from "@/components/ui/KineticHeading";
-import { LiveTickerChip } from "./LiveTickerChip";
-import { VenueMarquee } from "./VenueMarquee";
 import { Loader } from "./Loader";
 
-const HeroIgnition = dynamic(
-  () => import("@/components/three/HeroIgnition").then((m) => m.HeroIgnition),
+const HeroTerminal = dynamic(
+  () => import("@/components/three/HeroTerminal").then((m) => m.HeroTerminal),
   { ssr: false },
 );
 
@@ -31,7 +29,7 @@ export function Hero() {
             camera={{ position: [0, 0, 5], fov: 38 }}
             fallback={<div className="aurora-fallback h-full w-full" />}
           >
-            <HeroIgnition />
+            <HeroTerminal />
           </SceneFrame>
         )}
         {/* dark vignette layer so the type stays readable */}
@@ -49,21 +47,21 @@ export function Hero() {
         <div className="space-y-4">
           <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-[color:var(--color-ix-border)] bg-[color:var(--color-ix-surface)]/60 px-3 py-1 backdrop-blur">
             <span className="size-1.5 rounded-full bg-[color:var(--color-ix-cyan)]" />
-            Now in private beta · Solana
+            Private beta · Solana
           </span>
 
           <KineticHeading
             as="h1"
-            className="font-display font-medium tracking-[-0.04em] leading-[0.95] text-balance text-white text-[clamp(2.5rem,9vw,7.5rem)] max-w-[20ch]"
-            text="Command a fleet of 500 wallets. Trade faster than light."
-            highlight="500 wallets"
+            className="font-display font-medium tracking-[-0.04em] leading-[0.95] text-balance text-white text-[clamp(2.5rem,9vw,7.5rem)] max-w-[22ch]"
+            text="Trade faster, safer, smarter."
+            highlight="smarter."
             highlightClassName="gradient-text-fleet"
           />
 
-          <p className="max-w-[58ch] text-pretty text-base leading-relaxed text-[color:var(--color-ix-fg-muted)] sm:text-lg">
-            Insider-X is the fastest execution engine on Solana. Sub-200ms quote-to-fill across
-            pump.fun, Raydium, Jupiter, Drift and every alt-market that matters — orchestrated
-            from a single cockpit.
+          <p className="max-w-[60ch] text-pretty text-base leading-relaxed text-[color:var(--color-ix-fg-muted)] sm:text-lg">
+            Insider-X is the trading edge for Solana. Sub-200ms fills, on-chain rug protection,
+            and fees up to <span className="text-white">5× cheaper</span> than Axiom, Trojan
+            and Photon. Stop losing. Start winning.
           </p>
         </div>
 
@@ -74,7 +72,7 @@ export function Hero() {
             wrapperClassName="w-full sm:w-auto"
             className="w-full sm:w-auto"
           >
-            Get early access
+            Get beta access
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path
                 d="M3 7h8m0 0L8 4m3 3L8 10"
@@ -86,24 +84,24 @@ export function Hero() {
             </svg>
           </MagneticButton>
           <MagneticButton
-            href="#fleet"
+            href="#speed"
             variant="secondary"
             wrapperClassName="w-full sm:w-auto"
             className="w-full sm:w-auto"
           >
-            Watch the fleet fire
+            See how it works
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M5 3l5 4-5 4V3z" fill="currentColor" />
             </svg>
           </MagneticButton>
         </div>
 
-        {/* live ticker — own row so it never wraps awkwardly under the CTAs */}
-        <LiveTickerChip className="self-start" />
-
-        <div className="mt-auto pt-12">
-          <p className="eyebrow mb-3 opacity-70">Routing live across</p>
-          <VenueMarquee />
+        {/* Static benchmark chip (no live ticker — implied multi-venue) */}
+        <div className="self-start inline-flex items-center gap-2 rounded-full border border-[color:var(--color-ix-border)] bg-[color:var(--color-ix-surface)]/60 px-3 py-1.5 text-xs text-[color:var(--color-ix-fg-muted)] backdrop-blur">
+          <span className="size-1.5 rounded-full bg-[color:var(--color-ix-cyan)]" />
+          <span className="text-white font-medium">184ms</span>
+          <span>median fill</span>
+          <span className="text-[color:var(--color-ix-fg-dim)]">· internal benchmark*</span>
         </div>
       </div>
 

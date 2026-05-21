@@ -21,7 +21,7 @@ const TOPICS = [
   },
   {
     title: "Order graphs",
-    summary: "Compose limit, TWAP, DCA, and trailing into a single signed graph.",
+    summary: "Compose limit, DCA, and trailing into a single signed graph.",
     href: "#",
   },
   {
@@ -36,7 +36,7 @@ const TOPICS = [
   },
   {
     title: "Webhooks & events",
-    summary: "Subscribe to fills, liquidations, jackpot wins.",
+    summary: "Subscribe to fills, liquidations, fee-rebate events.",
     href: "#",
   },
 ];

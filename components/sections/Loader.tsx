@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const KEY = "ix:loader-seen";
 const CHARS = "INSIDER·X".split("");
@@ -15,6 +15,19 @@ const CHARS = "INSIDER·X".split("");
 export function Loader() {
   const [visible, setVisible] = useState(false);
   const reduced = useReducedMotion();
+
+  // Compute random initial offsets ONCE per mount instead of re-deriving on
+  // every render. (motion/react re-renders on AnimatePresence transitions,
+  // and Math.random in inline `initial` props was being recomputed.)
+  const offsets = useMemo(
+    () =>
+      CHARS.map(() => ({
+        y: (Math.random() - 0.5) * 120,
+        x: (Math.random() - 0.5) * 120,
+        rotate: (Math.random() - 0.5) * 60,
+      })),
+    [],
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -51,11 +64,11 @@ export function Loader() {
               <motion.span
                 key={i}
                 initial={{
-                  y: (Math.random() - 0.5) * 120,
-                  x: (Math.random() - 0.5) * 120,
+                  y: offsets[i].y,
+                  x: offsets[i].x,
                   opacity: 0,
                   filter: "blur(20px)",
-                  rotate: (Math.random() - 0.5) * 60,
+                  rotate: offsets[i].rotate,
                 }}
                 animate={{
                   y: 0,

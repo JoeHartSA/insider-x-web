@@ -219,7 +219,36 @@
   white-space: nowrap;
 }
 
-/* Subtle film grain layer used by PostFx HTML fallback */
+/* ----------------------------------------------------------------
+   FleetMobile — continuous post-fire pulse so the grid keeps moving
+   ---------------------------------------------------------------- */
+
+@keyframes fleet-row-pulse {
+  0%, 35%, 100% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  20% {
+    opacity: 0.35;
+  }
+}
+
+.fleet-row-pulse {
+  background: linear-gradient(
+    135deg,
+    rgba(91, 233, 255, 0.6),
+    rgba(123, 91, 255, 0.35)
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: fleet-row-pulse 3.6s linear infinite;
+}
+
+/* Subtle film grain layer used by PostFx HTML fallback. Disabled on mobile,
+   reduced-motion and narrow viewports — the SVG fractal-noise turbulence is
+   surprisingly expensive on weaker GPUs and contributes to fan-spin on Macs. */
 .grain::after {
   content: "";
   position: fixed;
@@ -229,6 +258,12 @@
   opacity: 0.04;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+@media (max-width: 1024px), (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .grain::after {
+    display: none;
+  }
 }
 
 /* Aurora background fallback for non-WebGL/initial paint */

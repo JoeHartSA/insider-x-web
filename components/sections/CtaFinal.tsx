@@ -82,7 +82,7 @@ export function CtaFinal() {
           <SceneFrame
             className="h-full w-full"
             camera={{ position: [0, 0.5, 5], fov: 38 }}
-            maxDpr={isMobile ? 1.0 : 1.4}
+            maxDpr={isMobile ? 1.0 : 1.25}
             fallback={<div className="aurora-fallback h-full w-full" />}
           >
             <Liftoff state={liftoffState.current} />
@@ -97,17 +97,17 @@ export function CtaFinal() {
               "radial-gradient(70% 60% at 50% 50%, rgba(5,0,8,0) 0%, rgba(5,0,8,0.7) 80%, rgba(5,0,8,0.9) 100%)",
           }}
         >
-          <span className="eyebrow">11 · Liftoff</span>
+          <span className="eyebrow">10 · Beta access</span>
           <KineticHeading
             as="h2"
-            text="The fleet is yours. Take off."
-            highlight="Take off."
+            text="This is the edge you've been missing."
+            highlight="missing."
             highlightClassName="gradient-text-fleet"
-            className="font-display font-medium tracking-[-0.04em] leading-[0.95] text-balance text-[clamp(2.5rem,9vw,7.5rem)]"
+            className="font-display font-medium tracking-[-0.04em] leading-[0.95] text-balance text-[clamp(2.25rem,7.5vw,6rem)]"
           />
-          <p className="max-w-[48ch] text-pretty text-[color:var(--color-ix-fg-muted)]">
-            Join the private beta. We&apos;re sending invites in waves — earliest signups get the
-            front of the queue and a permanent fee tier upgrade.
+          <p className="max-w-[50ch] text-pretty text-[color:var(--color-ix-fg-muted)]">
+            Join the private beta. Earliest signups get the front of the queue and a permanent
+            fee tier upgrade.
           </p>
 
           <AnimatePresence mode="wait">
@@ -155,7 +155,7 @@ export function CtaFinal() {
                   className="h-12 w-full sm:w-auto"
                   disabled={submitting}
                 >
-                  {submitting ? "…" : "Get my invite"}
+                  {submitting ? "…" : "Request beta access"}
                 </MagneticButton>
               </motion.form>
             )}
@@ -166,7 +166,7 @@ export function CtaFinal() {
           )}
 
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ix-fg-dim)]">
-            No spam · unsubscribe anytime
+            Beta · invite-only
           </p>
         </div>
       </div>

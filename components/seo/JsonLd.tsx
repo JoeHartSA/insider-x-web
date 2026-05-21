@@ -21,13 +21,8 @@ export function JsonLd() {
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web",
         description:
-          "The fastest execution engine on Solana. Command up to 500 wallets in parallel across pump.fun, Raydium, Jupiter, Drift and every alt-market.",
+          "Trade faster, safer, smarter on Solana. Sub-200ms fills, on-chain rug protection, and fees up to 5× cheaper than Axiom, Trojan and Photon.",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "184",
-        },
       },
     ],
   };

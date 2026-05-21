@@ -31,7 +31,7 @@ export const TESTIMONIALS: Testimonial[] = [
     handle: "@degenmarcus",
     name: "Marcus",
     avatarHue: 270,
-    text: "TWAP that arms a trailing stop on entry. Finally. I built this in Pine years ago.",
+    text: "DCA that arms a trailing stop on entry. Finally. I built this in Pine years ago.",
   },
   {
     handle: "@nodecaster",

@@ -5,9 +5,9 @@ const COLS = [
   {
     title: "Product",
     links: [
-      { href: "#fleet", label: "Fleet" },
       { href: "#speed", label: "Speed" },
-      { href: "#markets", label: "Markets" },
+      { href: "#fleet", label: "Fleet" },
+      { href: "#rug-protection", label: "Rug protection" },
       { href: "#features", label: "Features" },
       { href: "#rewards", label: "Rewards" },
     ],

@@ -24,7 +24,7 @@ export function Liftoff({ state }: { state: LiftoffState }) {
   stateRef.current = state;
 
   const { positions, velocities } = useMemo(() => {
-    const count = 600;
+    const count = 280;
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -82,17 +82,12 @@ export function Liftoff({ state }: { state: LiftoffState }) {
         <group ref={groupRef}>
           <mesh>
             <icosahedronGeometry args={[1, 4]} />
-            <meshPhysicalMaterial
+            <meshStandardMaterial
               color="#9d8cff"
-              metalness={0.85}
-              roughness={0.15}
-              iridescence={1}
-              iridescenceIOR={1.6}
-              iridescenceThicknessRange={[100, 800]}
-              clearcoat={1}
-              clearcoatRoughness={0.05}
-              emissive="#1a0a3a"
-              emissiveIntensity={0.6}
+              metalness={0.75}
+              roughness={0.22}
+              emissive="#3a1a6a"
+              emissiveIntensity={0.85}
             />
           </mesh>
 
@@ -152,10 +147,12 @@ export function Liftoff({ state }: { state: LiftoffState }) {
         />
       </points>
 
+      {/* Bloom moved to Fleet only (the only scene that genuinely benefits).
+          Aberration + vignette here; cheaper composite. */}
       <PostFx
-        intensity="default"
-        enableBloom
-        enableAberration={false}
+        intensity="low"
+        enableBloom={false}
+        enableAberration
         enableGrain={false}
         enableVignette
       />

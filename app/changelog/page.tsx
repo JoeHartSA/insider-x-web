@@ -22,7 +22,7 @@ const ENTRIES = [
     date: "2026-04-29",
     notes: [
       "Added Drift & Zeta perpetuals routing.",
-      "Daily SOL jackpot tier multipliers for Diamond rolled out.",
+      "Diamond-tier fee discount multipliers rolled out — fees drop to 0.1%.",
       "iOS Safari WebGL2 fallback for the Fleet scene.",
     ],
   },

@@ -10,9 +10,9 @@ import { SoundToggle } from "@/components/ui/SoundToggle";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { href: "#fleet", label: "Fleet" },
   { href: "#speed", label: "Speed" },
-  { href: "#markets", label: "Markets" },
+  { href: "#fleet", label: "Fleet" },
+  { href: "#rug-protection", label: "Rug protection" },
   { href: "#rewards", label: "Rewards" },
   { href: "/docs", label: "Docs" },
 ];

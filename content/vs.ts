@@ -48,7 +48,7 @@ export const VS_PAGES: Record<string, VsPage> = {
       },
       {
         title: "Full advanced order book",
-        copy: "Trojan ships limit only. Insider-X adds TWAP, DCA, and trailing stops enforced by an on-chain keeper.",
+        copy: "Trojan ships limit only. Insider-X adds DCA and trailing stops enforced by an on-chain keeper.",
       },
     ],
   },

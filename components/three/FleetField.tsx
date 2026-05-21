@@ -53,6 +53,9 @@ const vert = /* glsl */ `
   varying float vSeed;
   varying float vPnl;
   varying float vWave;        // 0..1 shockwave influence
+  varying float vRollCyan;    // rolling cyan pulse (L→R)
+  varying float vRollMag;     // rolling magenta pulse (R→L)
+  varying float vRowPulse;    // cascading row-by-row sweep
 
   void main() {
     vUv = uv;
@@ -71,14 +74,34 @@ const vert = /* glsl */ `
     float r = length(pos.xz);
     pos.y += -0.04 * r * r;
 
-    // breathing
-    pos.y += sin(uTime * 1.4 + aSeed * 12.0) * 0.012;
+    // breathing (slightly amplified to keep tiles visibly alive)
+    pos.y += sin(uTime * 1.4 + aSeed * 12.0) * 0.018;
 
-    // shockwave
+    // ---- continuous rolling waves so the field never feels frozen ----
+    // cyan wave: travels left → right along x
+    float waveX = pos.x * 0.45;
+    float rollC = 0.5 + 0.5 * sin(uTime * 1.6 - waveX * 3.2);
+    rollC = pow(rollC, 6.0);
+    vRollCyan = rollC * smoothstep(0.6, 0.9, uMorph);
+
+    // magenta wave: travels right → left along x
+    float rollM = 0.5 + 0.5 * sin(uTime * 1.25 + waveX * 3.6 + 1.7);
+    rollM = pow(rollM, 7.0);
+    vRollMag = rollM * smoothstep(0.6, 0.9, uMorph);
+
+    // cascading row sweep along z: an oscillating row index
+    float rowPhase = (pos.z + 1.4) * 1.6;
+    float rowPulse = 0.5 + 0.5 * sin(uTime * 0.9 - rowPhase);
+    rowPulse = pow(rowPulse, 8.0);
+    vRowPulse = rowPulse * smoothstep(0.6, 0.9, uMorph);
+
+    // gentle vertical lift while pulses pass through
+    pos.y += (rollC + rollM + rowPulse) * 0.03;
+
+    // explicit FIRE shockwave (one-shot)
     float wave = 0.0;
     if (uFire >= 0.0) {
       float dist = length(pos.xz - uFireOrigin.xz);
-      // expanding ring centered on dist = uFire * 4
       float ringR = uFire * 4.0;
       float band = exp(-pow((dist - ringR) * 1.6, 2.0));
       wave = band * (1.0 - clamp(uFire / 1.4, 0.0, 1.0));
@@ -99,6 +122,9 @@ const frag = /* glsl */ `
   varying float vSeed;
   varying float vPnl;
   varying float vWave;
+  varying float vRollCyan;
+  varying float vRollMag;
+  varying float vRowPulse;
 
   uniform float uTime;
   uniform float uFire;
@@ -155,6 +181,15 @@ const frag = /* glsl */ `
       vec3 flashCol = mix(vec3(0.36, 0.91, 1.0), vec3(1.0, 0.29, 0.78), clamp(t * 0.7, 0.0, 1.0));
       panel += flashCol * flashAmt * 0.95;
     }
+
+    // Rolling cyan / magenta pulses + cascading row sweep — keep
+    // the lattice continuously alive instead of static.
+    vec3 cyanCol = vec3(0.36, 0.91, 1.0);
+    vec3 magCol  = vec3(1.0, 0.29, 0.78);
+    vec3 ambCol  = vec3(0.78, 0.7, 1.0);
+    panel += cyanCol * vRollCyan * 0.85;
+    panel += magCol  * vRollMag  * 0.7;
+    panel += ambCol  * vRowPulse * 0.55;
 
     // ambient breathing glow — 3x stronger so tiles always feel alive
     float breathe = 0.35 + 0.65 * (0.5 + 0.5 * sin(uTime * 1.2 + vSeed * 9.0));
@@ -294,17 +329,21 @@ function FleetMesh({ count, stateRef, onFire }: { count: number; stateRef: React
 }
 
 function CameraRig({ stateRef }: { stateRef: React.MutableRefObject<FleetState> }) {
-  const { camera } = useThree();
+  const { camera, clock } = useThree();
   const target = useRef(new THREE.Vector3());
 
   useFrame((_, delta) => {
-    const s = stateRef.current;
-    // Cap pull-back so tiles remain readable at the end of the timeline.
-    const pull = Math.min(s.pull, 1) * 0.5;
-    const wantY = 1.55 + pull * 0.6;
-    const wantZ = 2.6 + pull * 0.7;
-    camera.position.y += (wantY - camera.position.y) * Math.min(1, delta * 3);
-    camera.position.z += (wantZ - camera.position.z) * Math.min(1, delta * 3);
+    // No pull-back. Camera stays tight on the lattice so the field always
+    // fills the viewport and never reads as "end of page". Tiny continuous
+    // breath so it never looks frozen.
+    void stateRef.current;
+    const t = clock.getElapsedTime();
+    const wantY = 1.55 + Math.sin(t * 0.4) * 0.04;
+    const wantZ = 2.6 + Math.sin(t * 0.28) * 0.06;
+    const wantX = Math.sin(t * 0.18) * 0.08;
+    camera.position.y += (wantY - camera.position.y) * Math.min(1, delta * 2.4);
+    camera.position.z += (wantZ - camera.position.z) * Math.min(1, delta * 2.4);
+    camera.position.x += (wantX - camera.position.x) * Math.min(1, delta * 2.4);
     target.current.set(0, 0, 0);
     camera.lookAt(target.current);
   });

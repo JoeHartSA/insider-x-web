@@ -34,8 +34,8 @@ export const FEATURES: Feature[] = [
   {
     id: "advanced-orders",
     eyebrow: "03 · Advanced Orders",
-    title: "Limit, TWAP, DCA, trailing. On-chain.",
-    copy: "Build complex order graphs visually — a limit that hatches a TWAP, a DCA that arms a trailing stop on entry. Every order is enforced on-chain by our keeper network, no off-chain trust required.",
+    title: "Limit, DCA, trailing. On-chain.",
+    copy: "Build complex order graphs visually — a limit that hatches a DCA, a DCA that arms a trailing stop on entry. Every order is enforced on-chain by our keeper network, no off-chain trust required.",
     bullets: [
       "Composable order graphs with branching logic",
       "On-chain keeper network — no centralised enforcer",

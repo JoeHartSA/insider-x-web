@@ -192,9 +192,12 @@ export function SpeedShowdown() {
             className="display-2 max-w-[20ch]"
           />
           <p className="max-w-[58ch] text-[color:var(--color-ix-fg-muted)] text-pretty">
-            Quote-to-fill measured against live Solana traffic, identical pairs, identical RPC
+            Preliminary quote-to-fill against live Solana traffic, identical pairs, identical RPC
             providers. We&apos;re first by a length and a half — and the gap widens at congestion
-            peaks.
+            peaks.{" "}
+            <span className="text-[color:var(--color-ix-fg-dim)]">
+              * Internal benchmark — full methodology pending public release.
+            </span>
           </p>
         </header>
 
@@ -333,10 +336,13 @@ export function SpeedShowdown() {
             <span className="font-mono">↳</span> methodology
           </summary>
           <p className="mt-2 leading-relaxed">
-            Median quote-to-fill measured across 24h of live Solana traffic on identical pairs
-            (SOL/USDC, WIF/SOL, BONK/SOL, JLP/SOL), routed through each platform&apos;s public
-            client. RPC providers held constant. Sample size n ≥ 12,000 per platform. Full traces
-            and reproducible scripts in the docs.
+            <span className="text-[color:var(--color-ix-fg-muted)]">
+              * Internal benchmark — full methodology pending public release.
+            </span>{" "}
+            Preliminary median quote-to-fill measured on identical pairs (SOL/USDC, WIF/SOL,
+            BONK/SOL, JLP/SOL) over a fixed window, routed through each platform&apos;s public
+            client with RPC providers held constant. Numbers shown are preliminary and will be
+            re-published with full traces and reproducible scripts in the docs at public launch.
           </p>
         </details>
       </div>

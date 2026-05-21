@@ -98,7 +98,7 @@ export function Fleet500() {
           scrollTrigger: {
             trigger: root,
             start: "top top",
-            end: isMobile ? "+=140%" : "+=220%",
+            end: isMobile ? "+=120%" : "+=160%",
             pin: !isMobile,
             pinSpacing: !isMobile,
             scrub: 0.5,
@@ -106,31 +106,32 @@ export function Fleet500() {
           },
         });
 
-        // Morph chaos→lattice
-        tl.to(sceneState.current, { morph: 1, duration: 0.45, ease: "power2.out" }, 0);
+        // Tiles stream in early and fast so the section has rolling motion
+        // for the entire scroll, not a slow assemble-then-stop pattern.
+        tl.to(sceneState.current, { morph: 1, duration: 0.25, ease: "power2.out" }, 0);
 
         // Beat copy reveals
         tl.fromTo(
           ".beat-1",
           { opacity: 1, y: 0 },
-          { opacity: 0, y: -16, duration: 0.06, ease: "power2.out" },
-          0.45,
+          { opacity: 0, y: -16, duration: 0.05, ease: "power2.out" },
+          0.30,
         );
         tl.fromTo(
           ".beat-2",
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.06, ease: "power2.out" },
-          0.46,
+          { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
+          0.31,
         );
-        tl.to(".beat-2", { opacity: 0, y: -16, duration: 0.06 }, 0.6);
+        tl.to(".beat-2", { opacity: 0, y: -16, duration: 0.05 }, 0.5);
         tl.fromTo(
           ".fire-cta",
           { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.06 },
-          0.46,
+          { opacity: 1, y: 0, duration: 0.05 },
+          0.32,
         );
 
-        // FIRE moment — auto-fire if user hasn't clicked by 0.62
+        // FIRE moment — auto-fire if user hasn't clicked by 0.55
         tl.call(
           () => {
             if (sceneState.current.fire < 0) {
@@ -143,10 +144,10 @@ export function Fleet500() {
             }
           },
           undefined,
-          0.62,
+          0.55,
         );
 
-        // Drive `fire` forward from 0 → 1.4
+        // Drive `fire` forward from 0 → 1.4 (one-shot shockwave)
         tl.to(
           sceneState.current,
           {
@@ -154,7 +155,7 @@ export function Fleet500() {
             duration: 0.2,
             ease: "power1.out",
           },
-          0.62,
+          0.55,
         );
 
         // PnL counter tick (visual flash) — proxy from 0 → 17820 SOL
@@ -162,7 +163,7 @@ export function Fleet500() {
           pnlProxy.current,
           {
             v: 17820,
-            duration: 0.2,
+            duration: 0.22,
             ease: "power3.out",
             onUpdate: () => {
               if (pnlRef.current) {
@@ -170,20 +171,18 @@ export function Fleet500() {
               }
             },
           },
-          0.62,
+          0.55,
         );
 
-        // Fade FIRE CTA out, swap to final tagline
-        tl.to(".fire-cta", { opacity: 0, y: -16, duration: 0.06 }, 0.78);
+        // Fade FIRE CTA out, swap to final tagline — but tile field keeps
+        // rolling. No camera pull-back; section ends with continuous motion.
+        tl.to(".fire-cta", { opacity: 0, y: -16, duration: 0.05 }, 0.78);
         tl.fromTo(
           ".beat-final",
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.1 },
-          0.79,
+          0.80,
         );
-
-        // Camera pull-back during last act
-        tl.to(sceneState.current, { pull: 1, duration: 0.22, ease: "power2.inOut" }, 0.78);
       }, root);
 
       return () => ctx.revert();
